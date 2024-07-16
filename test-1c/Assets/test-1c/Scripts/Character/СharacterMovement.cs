@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class СharacterMovement : MonoBehaviour
@@ -18,13 +17,13 @@ public class СharacterMovement : MonoBehaviour
     private float _minBorderXCoordinate, _maxBorderXCoordinate, _minBorderYCoordinate, _maxBorderYCoordinate;
 
     [SerializeField] private float speed;
-    
+
     #region MonoBehavior Methods
 
     private void Awake()
     {
         _gameControls = new();
-        
+
         Camera mainCamera = Camera.main;
 
         _minBorderXCoordinate = mainCamera.ViewportToWorldPoint(new Vector3(bordersViewportX.x, 0, 0)).x;
@@ -61,5 +60,5 @@ public class СharacterMovement : MonoBehaviour
     }
 
     #endregion
-    
+
 }
