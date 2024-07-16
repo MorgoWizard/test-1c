@@ -245,8 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb57b0582598444eba963d20f2aa5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bordersX: {x: 0, y: 0}
-  bordersY: {x: 0, y: 0}
+  bordersViewportX: {x: 0.05, y: 0.95}
+  bordersViewportY: {x: 0.05, y: 0.3}
   speed: 5
 --- !u!212 &1921881806
 SpriteRenderer:
