@@ -13,6 +13,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        transform.position += (Vector3) Vector2.down * (Time.deltaTime * _speed);
+        transform.position += (Vector3)Vector2.down * (Time.deltaTime * _speed);
     }
 }

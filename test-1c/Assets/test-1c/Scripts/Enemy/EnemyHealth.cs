@@ -6,6 +6,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private int _maxHealth;
     private int _currentHealth;
 
+    public static event Action OnDeath;
+
     public void Initialize(EnemyData enemyData)
     {
         _maxHealth = enemyData.MaxHealth;
@@ -26,6 +28,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Enemy Health: entity died");
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 }
