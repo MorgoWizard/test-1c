@@ -1,13 +1,23 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    public int health = 100;
+    private int _maxHealth;
+    private int _currentHealth;
+
+    public void Initialize(EnemyData enemyData)
+    {
+        _maxHealth = enemyData.MaxHealth;
+        _currentHealth = _maxHealth;
+        Debug.Log("Enemy Health: Initialization complete");
+    }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        _currentHealth -= damage;
+        Debug.Log($"Enemy Health: take {damage} damage");
+        if (_currentHealth <= 0)
         {
             Die();
         }
@@ -15,6 +25,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        Debug.Log("Enemy Health: entity died");
         Destroy(gameObject);
     }
 }
