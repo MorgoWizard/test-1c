@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4526403817110745411}
   - component: {fileID: 8240785414385046455}
   m_Layer: 0
-  m_Name: projectile
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 10
-  speed: 1
+  speed: 15
 --- !u!58 &4526403817110745411
 CircleCollider2D:
   m_ObjectHideFlags: 0
