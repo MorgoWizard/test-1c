@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class HealthTextSetter : MonoBehaviour
 {
+    [SerializeField] private string healthText;
     [SerializeField] private TextMeshProUGUI healthTMP;
 
     private void OnEnable()
@@ -17,6 +18,6 @@ public class HealthTextSetter : MonoBehaviour
 
     private void SetHealthText(int currentHealth)
     {
-        healthTMP.text = $"Health: {currentHealth}";
+        healthTMP.text = $"{healthText} {currentHealth}";
     }
 }
