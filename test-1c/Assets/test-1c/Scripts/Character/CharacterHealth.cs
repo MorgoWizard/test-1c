@@ -10,13 +10,13 @@ public class CharacterHealth : MonoBehaviour, IDamageable
         set
         {
             currentHealth = value;
-            OnHealthChanged?.Invoke();
+            OnHealthChanged?.Invoke(currentHealth);
             Debug.Log($"Character's Health: current health - {CurrentHealth}");
         }
     }
     private int currentHealth;
 
-    public static event Action OnHealthChanged;
+    public static event Action<int> OnHealthChanged;
     public static event Action OnDeath;
 
     private void Awake()

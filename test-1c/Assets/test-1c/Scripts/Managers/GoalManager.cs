@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GoalManager : MonoBehaviour
 {
@@ -6,6 +8,10 @@ public class GoalManager : MonoBehaviour
     private int enemiesToKillCount;
 
     private int currentKilledEnemiesCount;
+
+    public static event Action OnWin;
+    public static event Action OnLose;
+
 
     private void Awake()
     {
@@ -27,6 +33,7 @@ public class GoalManager : MonoBehaviour
     private void Win()
     {
         Debug.Log("Goal Manager: Player win");
+        OnWin?.Invoke();
     }
 
     private void CheckWin()
@@ -43,6 +50,7 @@ public class GoalManager : MonoBehaviour
     private void Lose()
     {
         Debug.Log("Goal Manager: Player lose");
+        OnLose?.Invoke();
     }
 
 
