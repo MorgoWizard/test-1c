@@ -11,13 +11,12 @@ public class Projectile : MonoBehaviour
         transform.position += transform.right * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.TryGetComponent<IDamageable>(out IDamageable enemyHealth))
         {
             enemyHealth.TakeDamage(bulletDamage);
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
 }
