@@ -20,9 +20,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     #region Public Methods
 
     /// <summary>
-    /// Initializes enemy with EnemyData
+    /// Initializes enemy health with EnemyData
     /// </summary>
-    /// <param name="enemyData">Data to use in Initialzie</param>
+    /// <param name="enemyData">Data to use in Initialize</param>
     public void Initialize(EnemyData enemyData)
     {
         _maxHealth = enemyData.MaxHealth;
