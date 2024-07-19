@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class СharacterMovement : MonoBehaviour
 {
+    /// <summary>
+    /// Prepared Input Actions
+    /// </summary>
     private IA_GameControls _gameControls;
 
     /// <summary>
@@ -14,8 +17,12 @@ public class СharacterMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private Vector2 bordersViewportY;
 
+    // Cached coordinates of borders
     private float _minBorderXCoordinate, _maxBorderXCoordinate, _minBorderYCoordinate, _maxBorderYCoordinate;
 
+    /// <summary>
+    /// Character's speed in units
+    /// </summary>
     [SerializeField] private float speed;
 
     #region MonoBehavior Methods
@@ -26,6 +33,8 @@ public class СharacterMovement : MonoBehaviour
 
         Camera mainCamera = Camera.main;
 
+        if(!mainCamera) return;
+        
         _minBorderXCoordinate = mainCamera.ViewportToWorldPoint(new Vector3(bordersViewportX.x, 0, 0)).x;
         _maxBorderXCoordinate = mainCamera.ViewportToWorldPoint(new Vector3(bordersViewportX.y, 0, 0)).x;
 
@@ -41,6 +50,7 @@ public class СharacterMovement : MonoBehaviour
     private void Update()
     {
         Vector2 moveInput = _gameControls.Character.Move.ReadValue<Vector2>();
+        
         Vector3 movement = moveInput * (Time.deltaTime * speed);
 
         Vector3 currentPosition = transform.position;
@@ -50,8 +60,6 @@ public class СharacterMovement : MonoBehaviour
         newPosition.y = Mathf.Clamp(newPosition.y, _minBorderYCoordinate, _maxBorderYCoordinate);
 
         transform.position = newPosition;
-
-        Vector3 characterPosition = transform.position;
     }
 
     private void OnDisable()
@@ -60,5 +68,4 @@ public class СharacterMovement : MonoBehaviour
     }
 
     #endregion
-
 }
