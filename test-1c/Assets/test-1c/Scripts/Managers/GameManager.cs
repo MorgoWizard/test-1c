@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Lose and Win screen GO
     [SerializeField] private GameObject winScreen, loseScreen;
 
-    private void Start()
-    {
-        // Start Game
-        Time.timeScale = 1;
-    }
+    #region MonoBehavior Methods
 
     private void OnEnable()
     {
@@ -16,11 +13,21 @@ public class GameManager : MonoBehaviour
         GoalManager.OnWin += OnWin;
     }
 
+    private void Start()
+    {
+        // Start Game
+        Time.timeScale = 1;
+    }
+
     private void OnDisable()
     {
         GoalManager.OnLose -= OnLose;
         GoalManager.OnWin -= OnWin;
     }
+
+    #endregion
+
+    #region Private Methods
 
     private void OnWin()
     {
@@ -33,4 +40,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         loseScreen.SetActive(true);
     }
+
+    #endregion
 }
