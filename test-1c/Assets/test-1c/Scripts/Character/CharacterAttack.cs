@@ -2,20 +2,42 @@
 
 public class CharacterAttack : MonoBehaviour
 {
+    /// <summary>
+    /// Transform of the projectile's spawn point
+    /// </summary>
     [SerializeField] private Transform projectileSpawner;
 
-    public float fireRate = 1f;
-    public float attackRadius = 5f;
-    public GameObject bulletPrefab;
+    /// <summary>
+    /// Fire rate in bullets per second
+    /// </summary>
+    [SerializeField] private float fireRate = 1f;
+    
+    /// <summary>
+    /// Radius of the character's attack in units
+    /// </summary>
+    [SerializeField] private float attackRadius = 5f;
+    
+    /// <summary>
+    /// GO prefab of the projectile
+    /// </summary>
+    [SerializeField] private GameObject projectilePrefab;
 
-    private float nextFireTime = 0f;
-    private Transform target;
+    /// <summary>
+    /// Min time of possible shot
+    /// </summary>
+    private float _nextFireTime;
+    
+    /// <summary>
+    /// Target's transform to shoot
+    /// </summary>
+    private Transform _target;
 
     private void Update()
     {
-        // TODO: Find target with courutine with cooldown
+        // TODO: Find target with coroutine with cooldown for optimization
         FindTarget();
-        if (target != null)
+        
+        if (_target)
         {
             RotateTowardsTarget();
             Attack();
@@ -24,32 +46,33 @@ public class CharacterAttack : MonoBehaviour
 
     private void FindTarget()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
+        Collider2D[] possibleTargets = Physics2D.OverlapCircleAll(transform.position, attackRadius);
+        
         float closestDistance = Mathf.Infinity;
         Transform closestEnemy = null;
 
-        foreach (Collider2D collider in colliders)
+        foreach (Collider2D possibleTarget in possibleTargets)
         {
-            IDamageable damageable = collider.GetComponent<IDamageable>();
-            if (damageable != null)
+            if (possibleTarget.TryGetComponent(out IDamageable damageable))
             {
-                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                float distance = Vector3.Distance(transform.position, possibleTarget.transform.position);
+                
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    closestEnemy = collider.transform;
+                    closestEnemy = possibleTarget.transform;
                 }
             }
         }
 
-        target = closestEnemy;
+        _target = closestEnemy;
     }
 
     private void Attack()
     {
-        if (target != null && Time.time >= nextFireTime)
+        if (_target  && Time.time >= _nextFireTime)
         {
-            nextFireTime = Time.time + 1f / fireRate;
+            _nextFireTime = Time.time + 1f / fireRate;
             Shoot();
         }
     }
@@ -57,12 +80,12 @@ public class CharacterAttack : MonoBehaviour
     private void Shoot()
     {
         // TODO: Add object pool
-        GameObject bullet = Instantiate(bulletPrefab, projectileSpawner.position, projectileSpawner.rotation);
+        GameObject bullet = Instantiate(projectilePrefab, projectileSpawner.position, projectileSpawner.rotation);
     }
 
     private void RotateTowardsTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (_target.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
