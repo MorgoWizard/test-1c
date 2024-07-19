@@ -3,24 +3,38 @@ using UnityEngine;
 
 public class CharacterHealth : MonoBehaviour, IDamageable
 {
+    /// <summary>
+    /// Max of the character's health
+    /// </summary>
     [SerializeField] private int maxHealth;
+    
+    /// <summary>
+    /// Current character's health
+    /// </summary>
     private int CurrentHealth
     {
-        get => currentHealth;
+        get => _currentHealth;
         set
         {
-            currentHealth = value;
-            OnHealthChanged?.Invoke(currentHealth);
+            _currentHealth = value;
+            OnHealthChanged?.Invoke(_currentHealth);
             Debug.Log($"Character's Health: current health - {CurrentHealth}");
         }
     }
-    private int currentHealth;
+    private int _currentHealth;
 
+    /// <summary>
+    /// The event that is triggered when the health changes
+    /// </summary>
     public static event Action<int> OnHealthChanged;
+    /// <summary>
+    /// The event that is triggered when the character dies
+    /// </summary>
     public static event Action OnDeath;
 
     private void Awake()
     {
+        // Set the current health to the max health on game started
         CurrentHealth = maxHealth;
     }
 
