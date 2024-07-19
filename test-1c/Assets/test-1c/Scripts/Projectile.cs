@@ -2,21 +2,36 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    // TODO: destroy when get out from view
-    public int bulletDamage = 10;
-    public float speed = 10f;
+    /// <summary>
+    /// Damage amount of projectile
+    /// </summary>
+    [SerializeField] private int projectileDamage = 10;
+
+    /// <summary>
+    /// Projectile's speed
+    /// </summary>
+    [SerializeField] private float speed = 10f;
+
+    #region MonoBehavior Methods
 
     private void Update()
     {
-        transform.position += transform.right * speed * Time.deltaTime;
+        transform.position += transform.right * (speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.TryGetComponent<IDamageable>(out IDamageable enemyHealth))
+        if (collision.transform.TryGetComponent(out IDamageable enemyHealth))
         {
-            enemyHealth.TakeDamage(bulletDamage);
+            enemyHealth.TakeDamage(projectileDamage);
             Destroy(gameObject);
         }
     }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    #endregion
 }
