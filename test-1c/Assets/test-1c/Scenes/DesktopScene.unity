@@ -1967,8 +1967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9112039715d2e924fbad448ff1068362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerEnemy: 1
-  CharacterHealth: {fileID: 1144551895}
+  damagePerEnemy: 1
+  characterHealth: {fileID: 1144551895}
 --- !u!1 &1139736475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3358,7 +3358,7 @@ MonoBehaviour:
   projectileSpawner: {fileID: 419358177}
   fireRate: 5
   attackRadius: 3
-  bulletPrefab: {fileID: 405897328543059084, guid: 5699b4a814190a24eb1726e0fe6a6fc5, type: 3}
+  projectilePrefab: {fileID: 405897328543059084, guid: 5699b4a814190a24eb1726e0fe6a6fc5, type: 3}
 --- !u!95 &1921881809
 Animator:
   serializedVersion: 5

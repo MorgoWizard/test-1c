@@ -4,19 +4,25 @@ using Random = UnityEngine.Random;
 
 public class GoalManager : MonoBehaviour
 {
+    // Min and Max enemies to kill count. Used to calculate current game goal
     [SerializeField] private int minEnemiesToKillCount, maxEnemiesToKillCount;
-    private int enemiesToKillCount;
 
-    private int currentKilledEnemiesCount;
+    /// <summary>
+    /// Goal
+    /// </summary>
+    private int _enemiesToKillCount;
+
+    private int _currentKilledEnemiesCount;
 
     public static event Action OnWin;
     public static event Action OnLose;
 
+    #region MonoBehavior Methods
 
     private void Awake()
     {
-        enemiesToKillCount = Random.Range(minEnemiesToKillCount, maxEnemiesToKillCount + 1);
-        Debug.Log($"Goal Manager: current goal {enemiesToKillCount}");
+        _enemiesToKillCount = Random.Range(minEnemiesToKillCount, maxEnemiesToKillCount + 1);
+        Debug.Log($"Goal Manager: current goal {_enemiesToKillCount}");
     }
 
     private void OnEnable()
@@ -30,6 +36,11 @@ public class GoalManager : MonoBehaviour
         CharacterHealth.OnDeath -= Lose;
         EnemyHealth.OnDeath -= OnEnemyDeath;
     }
+
+    #endregion
+
+    #region Private Methods
+
     private void Win()
     {
         Debug.Log("Goal Manager: Player win");
@@ -38,12 +49,12 @@ public class GoalManager : MonoBehaviour
 
     private void CheckWin()
     {
-        if (currentKilledEnemiesCount >= enemiesToKillCount) Win();
+        if (_currentKilledEnemiesCount >= _enemiesToKillCount) Win();
     }
 
     private void OnEnemyDeath()
     {
-        currentKilledEnemiesCount++;
+        _currentKilledEnemiesCount++;
         CheckWin();
     }
 
@@ -53,5 +64,5 @@ public class GoalManager : MonoBehaviour
         OnLose?.Invoke();
     }
 
-
+    #endregion
 }

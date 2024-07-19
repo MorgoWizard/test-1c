@@ -1,13 +1,14 @@
 using UnityEngine;
 
+// Use this to fit UI in safe area on the mobile device
 public class SafeAreaFitter : MonoBehaviour
 {
     private void Awake()
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
-        Rect safeaArea = Screen.safeArea;
-        Vector2 anchorMin = safeaArea.position;
-        Vector2 anchorMax = anchorMin + safeaArea.size;
+        Rect safeArea = Screen.safeArea;
+        Vector2 anchorMin = safeArea.position;
+        Vector2 anchorMax = anchorMin + safeArea.size;
 
         anchorMin.x /= Screen.width;
         anchorMax.x /= Screen.width;

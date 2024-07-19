@@ -2,16 +2,26 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
-    [SerializeField] private int DamagePerEnemy;
+    /// <summary>
+    /// Damage amount per enemy
+    /// </summary>
+    [SerializeField] private int damagePerEnemy;
 
-    [SerializeField] private CharacterHealth CharacterHealth;
+    /// <summary>
+    /// Character's health component
+    /// </summary>
+    [SerializeField] private CharacterHealth characterHealth;
+
+    #region MonoBehavior Methods
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            CharacterHealth.TakeDamage(DamagePerEnemy);
+            characterHealth.TakeDamage(damagePerEnemy);
             Destroy(collision.gameObject);
         }
     }
+
+    #endregion
 }
